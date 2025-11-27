@@ -1,0 +1,103 @@
+Вариант 1: Сумма цифр числа
+Python
+
+
+def sum_digits(n):
+    if n < 10:           # Базовый случай: если число однозначное
+        return n         # возвращаем само число
+    return n % 10 + sum_digits(n // 10)  # Рекурсивный случай
+
+
+
+    Вариант 6: Подсчет гласных в строке
+Python
+
+
+def count_vowels(s):
+    vowels = "aeiouAEIOU"
+    if not s:                    # Базовый случай: пустая строка
+        return 0
+    return (1 if s[0] in vowels else 0) + count_vowels(s[1:])
+
+
+    Вариант 9: Проверка отсортированности массива
+Python
+
+
+def is_sorted(arr):
+    if len(arr) <= 1:           # Базовый случай: массив пуст или из 1 элемента
+        return True
+    if arr[0] <= arr[1]:        # Проверяем порядок первых двух элементов
+        return is_sorted(arr[1:])  # Рекурсия для оставшейся части
+    return False
+
+
+
+    Вариант 12: Сочетания размера k из n элементов
+Python
+
+
+def combinations(n, k):
+    def backtrack(start, current):
+        if len(current) == k:    # Базовый случай: набрали k элементов
+            result.append(current[:])  # Сохраняем копию текущей комбинации
+            return
+        for i in range(start, n + 1):
+            current.append(i)    # Добавляем элемент
+            backtrack(i + 1, current)  # Рекурсия с увеличенным стартом
+            current.pop()        # Удаляем элемент (backtrack)
+    
+    result = []
+    backtrack(1, [])
+    return result
+
+
+
+
+    Вариант 13: Задача о 8 ферзях
+Python
+
+
+def solve_n_queens(n=8):
+    def is_safe(board, row, col):
+        # Проверяем все предыдущие строки
+        for i in range(row):
+            if board[i] == col:              # Проверка столбца
+                return False
+            if abs(board[i] - col) == abs(i - row):  # Проверка диагоналей
+                return False
+        return True
+    
+    def backtrack(row):
+        if row == n:              # Все ферзи расставлены
+            solutions.append(board[:])
+            return
+        for col in range(n):      # Пробуем все столбцы в текущей строке
+            if is_safe(board, row, col):
+                board[row] = col  # Ставим ферзя
+                backtrack(row + 1)  # Переходим к следующей строке
+    
+    solutions = []
+    board = [-1] * n  # board[i] = столбец ферзя в строке i
+    backtrack(0)
+    return solutions
+
+
+
+    Вариант 17: Подсчет листьев в бинарном дереве
+Python
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def count_leaves(root):
+    if not root:              # Базовый случай: пустое дерево
+        return 0
+    if not root.left and not root.right:  # Базовый случай: лист
+        return 1
+    return count_leaves(root.left) + count_leaves(root.right)  # Рекурсия
+
